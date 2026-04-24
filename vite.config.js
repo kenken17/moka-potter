@@ -1,10 +1,19 @@
 import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
 export default defineConfig({
-  base: '/',
+  plugins: [vue()],
   server: {
-    port: 5173,
-  },  // Change port if needed
+    port: 5174,  // <-- Fixed port
+  },
   build: {
     outDir: '/home/ken/Projects/moka-potter/dist',
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "./src/assets/styles/global.css";`
+      }
+    }
+  }
 })

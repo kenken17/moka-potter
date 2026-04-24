@@ -1,0 +1,412 @@
+@font-face {
+  font-family: 'Ostrich Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/webfonts/ostrich-sans-light.woff') format('woff'),
+       url('../fonts/webfonts/ostrich-sans-light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ostrich Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/webfonts/ostrich-sans-regular.woff') format('woff'),
+       url('../fonts/webfonts/ostrich-sans-regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ostrich Sans';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../fonts/webfonts/ostrich-sans-bold.woff') format('woff'),
+       url('../fonts/webfonts/ostrich-sans-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ostrich Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/webfonts/ostrich-sans-black.woff') format('woff'),
+       url('../fonts/webfonts/ostrich-sans-black.ttf') format('truetype');
+}
+
+:root {
+  --bg: #f2f2f7;
+  --surface: #ffffff;
+  --text-primary: #0a0a0a;
+  --text-secondary: #8e8e93;
+  --accent: #d4ff00;
+  --accent-hover: #c2eb00;
+  --dark: #0a0a0a;
+  --radius: 24px;
+  --radius-sm: 16px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  margin-bottom: 2rem;
+}
+
+.greeting {
+  font-family: 'Ostrich Sans', sans-serif;
+  font-weight: 400;
+  font-size: 2.8rem;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.greeting span {
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  background: var(--surface);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  box-shadow: var(--shadow);
+}
+
+/* Hero Card */
+.hero-card {
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(212,255,0,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.5);
+  margin: 0 0 0.25rem;
+}
+
+.hero-title {
+  font-family: 'Ostrich Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  margin: 0 0 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stat-value {
+  font-family: 'Ostrich Sans', sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.hero-stat-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.3rem;
+}
+
+.hero-bar {
+  margin-top: 1.25rem;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.hero-bar-fill {
+  height: 100%;
+  width: 60%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Inputs Card */
+.inputs-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-family: 'Ostrich Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  margin: 0 0 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  border: 1.5px solid rgba(0,0,0,0.06);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+  border-color: var(--dark);
+  background: var(--surface);
+}
+
+.input-group input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* Save Button */
+.save-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--accent);
+  color: var(--dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.save-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(212, 255, 0, 0.3);
+}
+
+.save-btn:active {
+  transform: translateY(0);
+}
+
+/* History Card */
+.history-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.history-count {
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+}
+
+/* Entry items */
+.entry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.entry-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.entry-item:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+}
+
+.entry-date {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.entry-title {
+  font-family: 'Ostrich Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.entry-meta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.entry-meta span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.entry-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--dark);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Floating action button */
+.fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--dark);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(212, 255, 0, 0.35);
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.fab:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(212, 255, 0, 0.45);
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 1.5rem 1rem 4rem;
+  }
+
+  .greeting {
+    font-size: 2.4rem;
+  }
+}
