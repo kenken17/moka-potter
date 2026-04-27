@@ -6,20 +6,19 @@
     </div>
 
     <ul v-if="entries.length > 0" class="entry-list">
-      <li v-for="entry in entries" :key="entry.date" class="entry-item">
+      <li v-for="entry in entries" :key="entry.id" class="entry-item">
         <div>
-          <div class="entry-date">{{ entry.date }}</div>
-          <div class="entry-title">Moka Brew</div>
+          <div class="entry-date">{{ entry.displayDate || entry.date }}</div>
+          <div class="entry-title">{{ entry.beanName || 'Moka Brew' }}</div>
           <div class="entry-meta">
-            <span>{{ entry.beans }}g beans</span>
-            <span>{{ entry.milk }}ml milk</span>
+            <span>{{ entry.weight }}g dose</span>
             <span>{{ entry.water }}g water</span>
-            <span>{{ entry.temp }}°C</span>
+            <span v-if="entry.temp">{{ entry.temp }}&deg;C</span>
           </div>
         </div>
-        <div class="entry-arrow">
+        <button class="entry-arrow" @click="remove(entry.id)" title="Delete">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </div>
+        </button>
       </li>
     </ul>
 
@@ -32,23 +31,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { deleteBrew } from '../db.js'
 
-const entries = ref([
-  // Demo entries for visual reference – remove in production
-  {
-    date: '23 Apr, Wed',
-    beans: '18.5',
-    milk: '120',
-    water: '250',
-    temp: '92'
-  },
-  {
-    date: '22 Apr, Tue',
-    beans: '20.0',
-    milk: '0',
-    water: '280',
-    temp: '94'
+const props = defineProps({
+  entries: {
+    type: Array,
+    default: () => []
   }
-])
+})
+
+const emit = defineEmits(['deleted'])
+
+async function remove(id) {
+  await deleteBrew(id)
+  emit('deleted')
+}
 </script>
