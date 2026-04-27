@@ -4,7 +4,7 @@
       <button class="back-btn" @click="goBack">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
       </button>
-      <h1 class="greeting">Brew <span>Detail</span></h1>
+      <h1 class="greeting">Brew <span>Details</span></h1>
     </header>
 
     <section v-if="brew" class="detail-card">
