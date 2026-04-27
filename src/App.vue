@@ -59,10 +59,10 @@
             <input type="number" id="milk" v-model="form.milk" min="0" step="1" placeholder="0" />
           </div>
 
-          <div class="input-group checkbox-group">
-            <label for="frothed" class="checkbox-top-label">Frothed</label>
-            <div class="checkbox-wrap">
+          <div class="input-group checkbox-inline">
+            <div class="checkbox-row">
               <input type="checkbox" id="frothed" v-model="form.frothed" />
+              <label for="frothed">Frothed</label>
             </div>
           </div>
         </div>

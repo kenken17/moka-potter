@@ -256,29 +256,35 @@ body {
   opacity: 0.5;
 }
 
-.checkbox-group {
+.checkbox-inline {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   gap: 0.4rem;
+  width: 100%;
 }
 
-.checkbox-top-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-}
-
-.checkbox-wrap {
+.checkbox-row {
   display: flex;
   align-items: center;
-  min-height: 46px;
+  gap: 0.6rem;
+  padding: 0.7rem 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
-.checkbox-wrap input[type="checkbox"] {
+.checkbox-row input[type="checkbox"] {
   width: 22px;
   height: 22px;
+  accent-color: var(--dark);
+  cursor: pointer;
+}
+
+.inline-label input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
   accent-color: var(--dark);
   cursor: pointer;
 }
