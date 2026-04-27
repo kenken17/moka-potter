@@ -14,7 +14,7 @@
       <div class="hero-stats">
         <div class="hero-stat">
           <span class="hero-stat-value">{{ totalBrews }}</span>
-          <span class="hero-stat-label">Total Cups</span>
+          <span class="hero-stat-label">Total Brews</span>
         </div>
         <div class="hero-stat">
           <span class="hero-stat-value">{{ todayBrews }}</span>
@@ -53,16 +53,68 @@
           </div>
         </div>
 
-        <div class="input-row">
-          <div class="input-group">
-            <label for="milk">Milk (ml)</label>
-            <input type="number" id="milk" v-model="form.milk" min="0" step="1" placeholder="0" />
+        <div class="cups-section">
+          <div class="cups-header">
+            <h3 class="cups-title">Cups</h3>
+            <button type="button" class="add-cup-btn" @click="addCup" title="Add cup">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
           </div>
 
-          <div class="input-group checkbox-inline">
-            <div class="checkbox-row">
-              <input type="checkbox" id="frothed" v-model="form.frothed" />
-              <label for="frothed">Frothed</label>
+          <div class="cup-list">
+            <div v-for="(cup, index) in form.cups" :key="index" class="cup-card">
+              <div class="cup-card-header">
+                <span class="cup-number">Cup {{ index + 1 }}</span>
+                <button v-if="form.cups.length > 1" type="button" class="cup-remove" @click="removeCup(index)" title="Remove cup">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+              <div class="cup-fields">
+                <div class="input-group">
+                  <label :for="'coffee-' + index">Coffee (ml)</label>
+                  <input type="number" :id="'coffee-' + index" v-model="cup.coffee" min="0" step="1" placeholder="0" />
+                </div>
+                <div class="input-group">
+                  <label :for="'sugar-' + index">Sugar (g)</label>
+                  <input type="number" :id="'sugar-' + index" v-model="cup.sugar" min="0" step="0.5" placeholder="0" />
+                </div>
+                <div class="input-group">
+                  <label :for="'milk-' + index">Milk (ml)</label>
+                  <input type="number" :id="'milk-' + index" v-model="cup.milk" min="0" step="1" placeholder="0" />
+                </div>
+                <div class="input-group checkbox-inline">
+                  <div class="checkbox-row">
+                    <input type="checkbox" :id="'frothed-' + index" v-model="cup.frothed" />
+                    <label :for="'frothed-' + index">Frothed</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cup-rating">
+                <label>Rating</label>
+                <div class="rating-hearts">
+                  <button
+                    v-for="n in 10"
+                    :key="n"
+                    type="button"
+                    class="rating-heart"
+                    :class="{ active: n <= cup.rating }"
+                    @click="cup.rating = n"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" :fill="n <= cup.rating ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="input-group cup-comments">
+                <label :for="'comments-' + index">Comments</label>
+                <textarea
+                  :id="'comments-' + index"
+                  v-model="cup.comments"
+                  rows="2"
+                  placeholder="Notes on this cup..."
+                ></textarea>
+              </div>
             </div>
           </div>
         </div>
@@ -91,8 +143,7 @@ const form = ref({
   weight: '',
   water: '',
   temp: '',
-  milk: '',
-  frothed: false
+  cups: [{ coffee: '', sugar: '', milk: '', frothed: false }]
 })
 const entries = ref([])
 const saving = ref(false)
@@ -105,12 +156,21 @@ const todayBrews = computed(() => {
 })
 
 const progressPercent = computed(() => {
-  // arbitrary goal of 5 cups per day
   return Math.min((todayBrews.value / 5) * 100, 100)
 })
 
 function pad(n) {
   return n < 10 ? '0' + n : n
+}
+
+function addCup() {
+  form.value.cups.push({ coffee: '', sugar: '', milk: '', frothed: false, rating: 0, comments: '' })
+}
+
+function removeCup(index) {
+  if (form.value.cups.length > 1) {
+    form.value.cups.splice(index, 1)
+  }
 }
 
 onMounted(() => {
@@ -142,10 +202,22 @@ async function saveEntry() {
       weight: form.value.weight || '0',
       water: form.value.water || '0',
       temp: form.value.temp || '',
-      milk: form.value.milk || '0',
-      frothed: form.value.frothed
+      cups: form.value.cups.map(c => ({
+        coffee: c.coffee || '0',
+        sugar: c.sugar || '0',
+        milk: c.milk || '0',
+        frothed: c.frothed,
+        rating: c.rating || 0,
+        comments: c.comments || ''
+      }))
     })
-    form.value = { beanName: '', weight: '', water: '', temp: '', milk: '', frothed: false }
+    form.value = {
+      beanName: '',
+      weight: '',
+      water: '',
+      temp: '',
+      cups: [{ coffee: '', sugar: '', milk: '', frothed: false, rating: 0, comments: '' }]
+    }
     await loadEntries()
   } finally {
     saving.value = false

@@ -9,7 +9,12 @@
       <li v-for="entry in entries" :key="entry.id" class="entry-item">
         <div>
           <div class="entry-date">{{ entry.displayDate || entry.date }}</div>
-          <div class="entry-title">{{ entry.beanName || 'Moka Brew' }}</div>
+          <div class="entry-title">
+            {{ entry.beanName || 'Moka Brew' }}
+            <span v-if="entry.cups && entry.cups.length" class="entry-cups">
+              {{ entry.cups.length }} {{ entry.cups.length === 1 ? 'cup' : 'cups' }}
+            </span>
+          </div>
           <div class="entry-meta">
             <span>{{ entry.weight }}g dose</span>
             <span>{{ entry.water }}g water</span>
