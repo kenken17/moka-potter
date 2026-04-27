@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <header class="header">
-      <h1 class="greeting">Good <span>morning</span></h1>
+      <h1 class="greeting">Good <span>{{ greeting }}</span></h1>
       <div class="date-badge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
         {{ today }}
@@ -85,6 +85,7 @@ import History from './components/History.vue'
 import { addBrew, getAllBrews } from './db.js'
 
 const today = ref('')
+const greeting = ref('morning')
 const form = ref({
   beanName: '',
   weight: '',
@@ -118,6 +119,11 @@ onMounted(() => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   today.value = `${now.getDate()} ${months[now.getMonth()]}, ${days[now.getDay()]}`
   todayStr.value = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
+  const hour = now.getHours()
+  if (hour >= 5 && hour < 12) greeting.value = 'morning'
+  else if (hour >= 12 && hour < 17) greeting.value = 'afternoon'
+  else if (hour >= 17 && hour < 24) greeting.value = 'evening'
+  else greeting.value = 'night'
   loadEntries()
 })
 
