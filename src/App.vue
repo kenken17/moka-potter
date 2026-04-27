@@ -27,7 +27,7 @@
     </section>
 
     <section class="inputs-card">
-      <h2 class="section-title">New Entry</h2>
+      <h2 class="section-title">New Brew</h2>
       <div class="inputs">
         <div class="input-row">
           <div class="input-group">
