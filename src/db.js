@@ -42,6 +42,13 @@ export async function deleteBrew(id) {
   db.close()
 }
 
+export async function getBrewById(id) {
+  const db = await getDB()
+  const brew = await db.get(STORE_NAME, Number(id))
+  db.close()
+  return brew
+}
+
 export async function clearBrews() {
   const db = await getDB()
   await db.clear(STORE_NAME)
