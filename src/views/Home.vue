@@ -107,17 +107,20 @@
 
               <div class="cup-rating">
                 <label>Rating</label>
-                <div class="rating-hearts">
-                  <button
-                    v-for="n in 10"
-                    :key="n"
-                    type="button"
-                    class="rating-heart"
-                    :class="{ active: n <= cup.rating }"
-                    @click="cup.rating = n"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" :fill="n <= cup.rating ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                  </button>
+                <div class="rating-row">
+                  <div class="rating-hearts">
+                    <button
+                      v-for="n in 10"
+                      :key="n"
+                      type="button"
+                      class="rating-heart"
+                      :class="{ active: n <= cup.rating }"
+                      @click="cup.rating = n"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" :fill="n <= cup.rating ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </button>
+                  </div>
+                  <span v-if="cup.rating > 0" class="rating-text">{{ cup.rating }}/10</span>
                 </div>
               </div>
 
