@@ -49,6 +49,12 @@ export async function getBrewById(id) {
   return brew
 }
 
+export async function updateBrew(brew) {
+  const db = await getDB()
+  await db.put(STORE_NAME, brew)
+  db.close()
+}
+
 export async function clearBrews() {
   const db = await getDB()
   await db.clear(STORE_NAME)

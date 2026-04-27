@@ -831,6 +831,24 @@ body {
   gap: 0.2rem;
 }
 
+.cup-rating-heart {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: rgba(0,0,0,0.12);
+  transition: color 0.15s ease, transform 0.15s ease;
+  line-height: 1;
+}
+
+.cup-rating-heart.active {
+  color: #e74c3c;
+}
+
+.cup-rating-heart:hover {
+  transform: scale(1.2);
+}
+
 .cup-rating-text {
   font-size: 0.8rem;
   font-weight: 600;

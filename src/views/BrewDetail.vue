@@ -41,11 +41,20 @@
         <div v-for="(cup, index) in brew.cups" :key="index" class="cup-detail-card">
           <div class="cup-detail-header">
             <span class="cup-number">Cup {{ index + 1 }}</span>
-            <div v-if="cup.rating" class="cup-rating-display">
+            <div class="cup-rating-display">
               <div class="cup-rating-hearts">
-                <svg v-for="n in cup.rating" :key="n" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <button
+                  v-for="n in 10"
+                  :key="n"
+                  type="button"
+                  class="cup-rating-heart"
+                  :class="{ active: n <= cup.rating }"
+                  @click="setRating(index, n)"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" :fill="n <= cup.rating ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </button>
               </div>
-              <span class="cup-rating-text">{{ cup.rating }}/10</span>
+              <span v-if="cup.rating > 0" class="cup-rating-text">{{ cup.rating }}/10</span>
             </div>
           </div>
 
@@ -77,7 +86,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getBrewById, deleteBrew } from '../db.js'
+import { getBrewById, updateBrew, deleteBrew } from '../db.js'
 
 const route = useRoute()
 const router = useRouter()
@@ -94,6 +103,12 @@ onMounted(async () => {
 
 function goBack() {
   router.push('/')
+}
+
+async function setRating(cupIndex, rating) {
+  if (!brew.value) return
+  brew.value.cups[cupIndex].rating = rating
+  await updateBrew(brew.value)
 }
 
 async function deleteAndGoHome() {
