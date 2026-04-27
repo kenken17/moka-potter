@@ -4,7 +4,7 @@
       <button class="back-btn" @click="goBack">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
       </button>
-      <h1 class="greeting">{{ dayTitle }}</h1>
+      <h1 class="greeting">{{ dayDate }}<span>, {{ dayName }}</span></h1>
     </header>
 
     <section v-if="brews.length" class="day-brews">
@@ -52,13 +52,23 @@ const route = useRoute()
 const router = useRouter()
 const brews = ref([])
 
-const dayTitle = computed(() => {
+const dayDate = computed(() => {
   const dateStr = route.params.date
   if (!dateStr) return ''
   try {
-    return format(parseISO(dateStr), 'EEE, d MMM yyyy')
+    return format(parseISO(dateStr), 'd MMM yyyy')
   } catch {
     return dateStr
+  }
+})
+
+const dayName = computed(() => {
+  const dateStr = route.params.date
+  if (!dateStr) return ''
+  try {
+    return format(parseISO(dateStr), 'EEE')
+  } catch {
+    return ''
   }
 })
 
