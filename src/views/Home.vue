@@ -30,33 +30,33 @@
       <h2 class="section-title">New Brew</h2>
       <div class="inputs">
         <div class="input-row">
-          <div class="input-group">
+          <div class="input-group" :class="{ 'input-error': errors.water }">
             <label for="water">Water (g)</label>
-            <input type="number" id="water" v-model="form.water" min="0" step="1" placeholder="0" />
+            <input type="number" id="water" v-model="form.water" min="0" step="1" placeholder="0" @input="errors.water = false" />
           </div>
 
-          <div class="input-group">
+          <div class="input-group" :class="{ 'input-error': errors.temp }">
             <label for="temp">Temp (&deg;C)</label>
-            <input type="number" id="temp" v-model="form.temp" min="0" max="100" step="1" placeholder="92" />
+            <input type="number" id="temp" v-model="form.temp" min="0" max="100" step="1" placeholder="92" @input="errors.temp = false" />
           </div>
         </div>
 
         <div class="input-row row-bean">
-          <div class="input-group">
+          <div class="input-group" :class="{ 'input-error': errors.beanName }">
             <label for="beanName">Bean</label>
-            <input type="text" id="beanName" v-model="form.beanName" placeholder="e.g. Ethiopia Yirgacheffe" />
+            <input type="text" id="beanName" v-model="form.beanName" placeholder="e.g. Ethiopia Yirgacheffe" @input="errors.beanName = false" />
           </div>
 
-          <div class="input-group">
+          <div class="input-group" :class="{ 'input-error': errors.weight }">
             <label for="weight">Weight (g)</label>
-            <input type="number" id="weight" v-model="form.weight" min="0" step="0.1" placeholder="0.0" />
+            <input type="number" id="weight" v-model="form.weight" min="0" step="0.1" placeholder="0.0" @input="errors.weight = false" />
           </div>
         </div>
 
         <div class="input-row full-width">
-          <div class="input-group">
+          <div class="input-group" :class="{ 'input-error': errors.grindSize }">
             <label for="grindSize">Grind Size</label>
-            <select id="grindSize" v-model="form.grindSize">
+            <select id="grindSize" v-model="form.grindSize" @change="errors.grindSize = false">
               <option value="" disabled>Select grind</option>
               <option value="Coarse">Coarse</option>
               <option value="Medium Coarse">Medium Coarse</option>
@@ -85,9 +85,9 @@
                 </button>
               </div>
               <div class="cup-fields">
-                <div class="input-group">
+                <div class="input-group" :class="{ 'input-error': errors.cups[index] }">
                   <label :for="'coffee-' + index">Coffee (ml)</label>
-                  <input type="number" :id="'coffee-' + index" v-model="cup.coffee" min="0" step="1" placeholder="0" />
+                  <input type="number" :id="'coffee-' + index" v-model="cup.coffee" min="0" step="1" placeholder="0" @input="clearCupError(index)" />
                 </div>
                 <div class="input-group">
                   <label :for="'sugar-' + index">Sugar (g)</label>
@@ -164,6 +164,14 @@ const form = ref({
   grindSize: '',
   cups: [{ coffee: '', sugar: '', milk: '', frothed: false, rating: 0, comments: '' }]
 })
+const errors = ref({
+  beanName: false,
+  weight: false,
+  water: false,
+  temp: false,
+  grindSize: false,
+  cups: []
+})
 const entries = ref([])
 const saving = ref(false)
 
@@ -189,7 +197,29 @@ function addCup() {
 function removeCup(index) {
   if (form.value.cups.length > 1) {
     form.value.cups.splice(index, 1)
+    errors.value.cups.splice(index, 1)
   }
+}
+
+function clearCupError(index) {
+  if (errors.value.cups[index]) {
+    errors.value.cups[index] = false
+  }
+}
+
+function validateForm() {
+  const e = {
+    beanName: !form.value.beanName?.trim(),
+    weight: !form.value.weight?.toString().trim(),
+    water: !form.value.water?.toString().trim(),
+    temp: !form.value.temp?.toString().trim(),
+    grindSize: !form.value.grindSize,
+    cups: form.value.cups.map(c => !c.coffee?.toString().trim())
+  }
+  errors.value = e
+  const brewValid = !e.beanName && !e.weight && !e.water && !e.temp && !e.grindSize
+  const cupsValid = e.cups.every(v => !v)
+  return brewValid && cupsValid
 }
 
 onMounted(() => {
@@ -211,7 +241,7 @@ async function loadEntries() {
 }
 
 async function saveEntry() {
-  if (!form.value.weight && !form.value.water) return
+  if (!validateForm()) return
   saving.value = true
   try {
     await addBrew({

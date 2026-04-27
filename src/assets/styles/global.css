@@ -291,6 +291,18 @@ body {
   color: var(--text-primary);
 }
 
+.input-group.input-error input,
+.input-group.input-error select {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.04);
+}
+
+.input-group.input-error input:focus,
+.input-group.input-error select:focus {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.06);
+}
+
 .checkbox-inline {
   display: flex;
   flex-direction: column;
