@@ -19,6 +19,7 @@
             <span>{{ entry.weight }}g dose</span>
             <span>{{ entry.water }}g water</span>
             <span v-if="entry.temp">{{ entry.temp }}&deg;C</span>
+            <span v-if="entry.grindSize">{{ entry.grindSize }}</span>
           </div>
         </div>
         <button class="entry-arrow" @click="remove(entry.id)" title="Delete">

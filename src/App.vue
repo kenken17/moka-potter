@@ -53,6 +53,21 @@
           </div>
         </div>
 
+        <div class="input-row full-width">
+          <div class="input-group">
+            <label for="grindSize">Grind Size</label>
+            <select id="grindSize" v-model="form.grindSize">
+              <option value="" disabled>Select grind</option>
+              <option value="Coarse">Coarse</option>
+              <option value="Medium Coarse">Medium Coarse</option>
+              <option value="Medium">Medium</option>
+              <option value="Medium Fine">Medium Fine</option>
+              <option value="Fine">Fine</option>
+              <option value="Extra Fine (Espresso)">Extra Fine (Espresso)</option>
+            </select>
+          </div>
+        </div>
+
         <div class="cups-section">
           <div class="cups-header">
             <h3 class="cups-title">Cups</h3>
@@ -111,7 +126,7 @@
                 <textarea
                   :id="'comments-' + index"
                   v-model="cup.comments"
-                  rows="2"
+                  rows="3"
                   placeholder="Notes on this cup..."
                 ></textarea>
               </div>
@@ -143,7 +158,8 @@ const form = ref({
   weight: '',
   water: '',
   temp: '',
-  cups: [{ coffee: '', sugar: '', milk: '', frothed: false }]
+  grindSize: '',
+  cups: [{ coffee: '', sugar: '', milk: '', frothed: false, rating: 0, comments: '' }]
 })
 const entries = ref([])
 const saving = ref(false)
@@ -202,6 +218,7 @@ async function saveEntry() {
       weight: form.value.weight || '0',
       water: form.value.water || '0',
       temp: form.value.temp || '',
+      grindSize: form.value.grindSize || 'Medium',
       cups: form.value.cups.map(c => ({
         coffee: c.coffee || '0',
         sugar: c.sugar || '0',
@@ -216,6 +233,7 @@ async function saveEntry() {
       weight: '',
       water: '',
       temp: '',
+      grindSize: '',
       cups: [{ coffee: '', sugar: '', milk: '', frothed: false, rating: 0, comments: '' }]
     }
     await loadEntries()

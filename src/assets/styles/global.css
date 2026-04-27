@@ -218,6 +218,10 @@ body {
   grid-template-columns: 3fr 1fr;
 }
 
+.input-row.full-width {
+  grid-template-columns: 1fr;
+}
+
 .input-group {
   display: flex;
   flex-direction: column;
@@ -254,6 +258,37 @@ body {
 .input-group input::placeholder {
   color: var(--text-secondary);
   opacity: 0.5;
+}
+
+.input-group select {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  border: 1.5px solid rgba(0,0,0,0.06);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+.input-group select:focus {
+  border-color: var(--dark);
+  background-color: var(--surface);
+}
+
+.input-group select option {
+  color: var(--text-primary);
 }
 
 .checkbox-inline {
