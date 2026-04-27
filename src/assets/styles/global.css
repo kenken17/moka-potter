@@ -590,31 +590,6 @@ body {
   transform: translateY(-1px);
 }
 
-.entry-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.entry-delete {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--text-secondary);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.entry-delete:hover {
-  background: rgba(231, 76, 60, 0.1);
-  color: #e74c3c;
-}
-
 .entry-date {
   font-size: 0.75rem;
   font-weight: 600;
@@ -860,6 +835,37 @@ body {
   margin: 0;
   padding-top: 0.5rem;
   border-top: 1px solid rgba(0,0,0,0.04);
+}
+
+.detail-actions {
+  margin-top: 1rem;
+}
+
+.delete-btn {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: #fff;
+  color: #e74c3c;
+  border: 1.5px solid rgba(231, 76, 60, 0.2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.delete-btn:hover {
+  background: #e74c3c;
+  color: #fff;
+  border-color: #e74c3c;
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.2);
 }
 
 @media (max-width: 600px) {

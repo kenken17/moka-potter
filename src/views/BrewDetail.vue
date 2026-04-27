@@ -58,6 +58,13 @@
       </div>
     </section>
 
+    <div v-if="brew" class="detail-actions">
+      <button class="delete-btn" @click="deleteAndGoHome">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        Delete Brew
+      </button>
+    </div>
+
     <div v-else-if="!loading" class="empty-state">
       <div>Brew not found.</div>
     </div>
@@ -67,7 +74,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getBrewById } from '../db.js'
+import { getBrewById, deleteBrew } from '../db.js'
 
 const route = useRoute()
 const router = useRouter()
@@ -83,6 +90,13 @@ onMounted(async () => {
 })
 
 function goBack() {
+  router.push('/')
+}
+
+async function deleteAndGoHome() {
+  if (!brew.value) return
+  if (!confirm('Delete this brew?')) return
+  await deleteBrew(brew.value.id)
   router.push('/')
 }
 </script>
