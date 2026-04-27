@@ -911,6 +911,144 @@ body {
   box-shadow: 0 8px 20px rgba(231, 76, 60, 0.2);
 }
 
+/* Calendar */
+.calendar {
+  margin-bottom: 1.5rem;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.calendar-month {
+  font-family: 'Ostrich Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.calendar-nav {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--text-primary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  background: var(--dark);
+  color: #fff;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  padding: 0.35rem 0;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.calendar-day:hover {
+  background: var(--bg);
+}
+
+.calendar-day.other-month {
+  opacity: 0.3;
+}
+
+.calendar-day.today {
+  background: var(--dark);
+  color: #fff;
+}
+
+.calendar-day.today .day-number {
+  color: #fff;
+}
+
+.calendar-day.has-brew.today .day-dot {
+  background: var(--accent);
+}
+
+.day-number {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.day-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--dark);
+}
+
+/* Recent brews under calendar */
+.recent-brews {
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding-top: 1rem;
+}
+
+.recent-title {
+  font-family: 'Ostrich Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+/* Day view */
+.day-brews {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.day-brews-header {
+  margin-bottom: 0.5rem;
+}
+
 @media (max-width: 600px) {
   .app {
     padding: 1.5rem 1rem 4rem;
