@@ -8,7 +8,7 @@
     </header>
 
     <section v-if="brew" class="detail-card">
-      <div class="detail-date">{{ brew.displayDate || brew.date }}</div>
+      <div class="detail-date">{{ brew.displayDate || brew.date }} <span v-if="brew.time" class="detail-time">{{ brew.time }}</span></div>
       <h2 class="detail-title">{{ brew.beanName || 'Moka Brew' }}</h2>
 
       <div class="detail-stats">

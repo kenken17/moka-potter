@@ -247,6 +247,7 @@ async function saveEntry() {
     await addBrew({
       date: todayStr.value,
       displayDate: today.value,
+      time: `${pad(new Date().getHours())}:${pad(new Date().getMinutes())}`,
       beanName: form.value.beanName || 'Moka Brew',
       weight: form.value.weight || '0',
       water: form.value.water || '0',

@@ -45,7 +45,7 @@
       <ul class="entry-list">
         <li v-for="entry in recentEntries" :key="entry.id" class="entry-item" @click="goToDetail(entry.id)">
           <div>
-            <div class="entry-date">{{ entry.displayDate || entry.date }}</div>
+            <div class="entry-date">{{ entry.displayDate || entry.date }} <span v-if="entry.time" class="entry-time">{{ entry.time }}</span></div>
             <div class="entry-title">
               {{ entry.beanName || 'Moka Brew' }}
               <span v-if="entry.cups && entry.cups.length" class="entry-cups">

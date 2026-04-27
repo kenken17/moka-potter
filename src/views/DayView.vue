@@ -21,6 +21,7 @@
                 {{ brew.cups.length }} {{ brew.cups.length === 1 ? 'cup' : 'cups' }}
               </span>
             </div>
+            <div class="entry-date" v-if="brew.time">{{ brew.time }}</div>
             <div class="entry-meta">
               <span>{{ brew.weight }}g dose</span>
               <span>{{ brew.water }}g water</span>

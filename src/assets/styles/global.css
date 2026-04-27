@@ -648,6 +648,14 @@ body {
   border-radius: 100px;
 }
 
+.entry-time {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  margin-left: 0.3rem;
+}
+
 .entry-meta {
   display: flex;
   gap: 1rem;
@@ -753,6 +761,12 @@ body {
   letter-spacing: 0.04em;
   color: var(--text-secondary);
   margin-bottom: 0.25rem;
+}
+
+.detail-time {
+  font-weight: 500;
+  opacity: 0.7;
+  margin-left: 0.3rem;
 }
 
 .detail-title {
