@@ -56,7 +56,7 @@ const dayTitle = computed(() => {
   const dateStr = route.params.date
   if (!dateStr) return ''
   try {
-    return format(parseISO(dateStr), 'EEEE, MMM d')
+    return format(parseISO(dateStr), 'EEE, MMM d')
   } catch {
     return dateStr
   }
