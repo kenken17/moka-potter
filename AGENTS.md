@@ -1,0 +1,55 @@
+# Moka Potter — Agent Notes
+
+## Dev Server
+- **Fixed port: 5174** — do not change. Run with `npm run dev` or `npx vite --port 5174 --host`.
+- The server must stay on the same port across sessions. Background it with `nohup` if needed.
+
+## Build
+- `npm run build` (Vite). Output goes to `dist/`.
+- No tests exist yet (`npm test` exits with error).
+
+## Stack
+- Vue 3 + Vue Router 4 + Vite
+- `date-fns` for calendar math
+- `idb` for IndexedDB (lightweight wrapper)
+- Fonts: **Ostrich Sans** (local, tall/condensed) for headings; **Inter** (Google Fonts CDN) for body
+
+## Routes
+| Path | View | Notes |
+|------|------|-------|
+| `/` | Home | New brew form + calendar history |
+| `/brew/:id` | BrewDetail | Editable cup ratings (auto-save) |
+| `/day/:date` | DayView | Brews for one day (YYYY-MM-DD) |
+
+## Data Model (IndexedDB)
+- DB: `moka-potter`, store: `brews`, keyPath: `id` (autoIncrement)
+- Brew shape:
+  ```
+  date: "YYYY-MM-DD"
+  displayDate: "27 Apr, Mon"
+  time: "09:42"
+  beanName, weight, water, temp, grindSize
+  cups: [
+    { coffee, sugar, milk, frothed, rating, comments }
+  ]
+  createdAt: Date.now()
+  ```
+- API: `addBrew`, `getAllBrews`, `getBrewById`, `updateBrew`, `deleteBrew`
+
+## Critical Gotchas
+- **Rating auto-save on detail page:** use `toRaw()` to unwrap Vue's Proxy before passing the brew object to `updateBrew`. IndexedDB throws `DataCloneError` on Proxies.
+- **Cups are inline arrays** inside each brew. Deleting a brew deletes all its cups.
+- **Validation:** Brew fields (water, temp, bean, weight, grindSize) are all compulsory. In each cup, only `coffee` is compulsory.
+- **Calendar in History:** month grid with arrows. Days with brews get a dot. Click navigates to `/day/:date`.
+
+## File Layout
+```
+src/
+  views/        Home.vue, BrewDetail.vue, DayView.vue
+  components/   History.vue (calendar + recent list)
+  db.js         IndexedDB module
+  main.js       Router setup
+  assets/
+    fonts/webfonts/    Ostrich Sans files
+    styles/global.css  All styling
+```
