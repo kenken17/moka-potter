@@ -84,7 +84,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, toRaw } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getBrewById, updateBrew, deleteBrew } from '../db.js'
 
@@ -107,10 +107,13 @@ function goBack() {
 
 async function setRating(cupIndex, rating) {
   if (!brew.value) return
-  const updatedCups = [...brew.value.cups]
-  updatedCups[cupIndex] = { ...updatedCups[cupIndex], rating }
-  brew.value = { ...brew.value, cups: updatedCups }
-  await updateBrew(brew.value)
+  const raw = toRaw(brew.value)
+  const updatedCups = raw.cups.map((c, i) =>
+    i === cupIndex ? { ...c, rating } : c
+  )
+  const updatedBrew = { ...raw, cups: updatedCups }
+  brew.value = updatedBrew
+  await updateBrew(updatedBrew)
 }
 
 async function deleteAndGoHome() {
