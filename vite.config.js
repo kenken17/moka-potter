@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5174,  // <-- Fixed port
   },
   build: {
-    outDir: '/home/ken/Projects/moka-potter/dist',
+    outDir: 'dist',
   },
   css: {
     preprocessorOptions: {

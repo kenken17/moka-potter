@@ -42,6 +42,16 @@
 - **Validation:** Brew fields (water, temp, bean, weight, grindSize) are all compulsory. In each cup, only `coffee` is compulsory.
 - **Calendar in History:** month grid with arrows. Days with brews get a dot. Click navigates to `/day/:date`.
 
+## Deployment (Cloudflare Pages)
+- **Platform:** Cloudflare Pages (static hosting, not Workers directly).
+- **Build output:** `dist/` (relative path in `vite.config.js`).
+- **SPA routing:** `public/_redirects` contains `/* /index.html 200` so Vue Router's `createWebHistory()` works.
+- **Commands:**
+  - `npm run build` — build for production
+  - `npm run deploy` — build + deploy to Pages via Wrangler
+  - `npx wrangler pages deploy dist` — deploy existing build
+- **No port config needed** in production — Cloudflare serves over HTTPS (443) at the edge.
+
 ## File Layout
 ```
 src/
@@ -52,4 +62,6 @@ src/
   assets/
     fonts/webfonts/    Ostrich Sans files
     styles/global.css  All styling
+public/
+  _redirects           SPA catch-all for Cloudflare Pages
 ```

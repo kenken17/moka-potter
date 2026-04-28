@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5174 --host",
     "build": "vite build",
     "preview": "vite preview",
+    "deploy": "npm run build && wrangler pages deploy dist",
+    "pages:deploy": "wrangler pages deploy dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,6 +22,7 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.6"
+    "@vitejs/plugin-vue": "^6.0.6",
+    "wrangler": "^4.85.0"
   }
 }
