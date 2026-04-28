@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" @touchstart="onTouchStart" @touchend="onTouchEnd">
     <header class="header detail-header">
       <button class="back-btn" @click="goBack">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -101,6 +101,9 @@ const router = useRouter()
 const brew = ref(null)
 const loading = ref(true)
 
+let touchStartX = 0
+let touchStartY = 0
+
 onMounted(async () => {
   const id = route.params.id
   if (id) {
@@ -110,7 +113,22 @@ onMounted(async () => {
 })
 
 function goBack() {
-  router.push('/')
+  router.back()
+}
+
+function onTouchStart(e) {
+  touchStartX = e.changedTouches[0].screenX
+  touchStartY = e.changedTouches[0].screenY
+}
+
+function onTouchEnd(e) {
+  const endX = e.changedTouches[0].screenX
+  const endY = e.changedTouches[0].screenY
+  const diffX = endX - touchStartX
+  const diffY = endY - touchStartY
+  if (diffX > 80 && Math.abs(diffY) < 60) {
+    router.back()
+  }
 }
 
 async function setRating(cupIndex, rating) {
