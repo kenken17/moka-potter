@@ -234,6 +234,9 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .input-group input {
