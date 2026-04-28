@@ -47,7 +47,7 @@
           <div>
             <div class="entry-date">{{ entry.displayDate || entry.date }} <span v-if="entry.time" class="entry-time">{{ entry.time }}</span></div>
             <div class="entry-title">
-              {{ entry.beanName || 'Moka Brew' }}
+              <span class="entry-title-text">{{ entry.beanName || 'Moka Brew' }}</span>
               <span v-if="entry.cups && entry.cups.length" class="entry-cups">
                 {{ entry.cups.length }} {{ entry.cups.length === 1 ? 'cup' : 'cups' }}
               </span>

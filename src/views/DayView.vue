@@ -16,7 +16,7 @@
         <li v-for="brew in brews" :key="brew.id" class="entry-item" @click="goToBrew(brew.id)">
           <div>
             <div class="entry-title">
-              {{ brew.beanName || 'Moka Brew' }}
+              <span class="entry-title-text">{{ brew.beanName || 'Moka Brew' }}</span>
               <span v-if="brew.cups && brew.cups.length" class="entry-cups">
                 {{ brew.cups.length }} {{ brew.cups.length === 1 ? 'cup' : 'cups' }}
               </span>

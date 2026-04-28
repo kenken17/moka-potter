@@ -618,6 +618,11 @@ body {
   transform: translateY(-1px);
 }
 
+.entry-item > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
 .entry-date {
   font-size: 0.75rem;
   font-weight: 600;
@@ -637,6 +642,9 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.entry-title-text {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -653,6 +661,7 @@ body {
   background: var(--bg);
   padding: 0.2rem 0.5rem;
   border-radius: 100px;
+  flex-shrink: 0;
 }
 
 .entry-time {
