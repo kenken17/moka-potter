@@ -46,10 +46,20 @@
 - **Platform:** Cloudflare Pages (static hosting, not Workers directly).
 - **Build output:** `dist/` (relative path in `vite.config.js`).
 - **SPA routing:** `public/_redirects` contains `/* /index.html 200` so Vue Router's `createWebHistory()` works.
-- **Commands:**
-  - `npm run build` — build for production
-  - `npm run deploy` — build + deploy to Pages via Wrangler
-  - `npx wrangler pages deploy dist` — deploy existing build
+
+### Two ways to deploy:
+
+**1. Git Integration (recommended)**
+- Connect GitHub repo in Cloudflare Pages dashboard
+- **Build command:** `npm run build`
+- **Build output directory:** `dist`
+- `wrangler.toml` already has `pages_build_output_dir = "dist"`
+- Deploys automatically on every push to `master`
+
+**2. Manual CLI deploy**
+- `npm run deploy` — build + deploy via Wrangler
+- Requires `CLOUDFLARE_API_TOKEN` or `npx wrangler login`
+
 - **No port config needed** in production — Cloudflare serves over HTTPS (443) at the edge.
 
 ## File Layout
