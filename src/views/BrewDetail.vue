@@ -65,6 +65,13 @@
             <span v-if="cup.frothed">Frothed</span>
           </div>
 
+          <CupVisual
+            :coffee="parseFloat(cup.coffee) || 0"
+            :milk="parseFloat(cup.milk) || 0"
+            :sugar="parseFloat(cup.sugar) || 0"
+            :frothed="cup.frothed"
+          />
+
           <p v-if="cup.comments" class="cup-detail-comments">{{ cup.comments }}</p>
         </div>
       </div>
@@ -87,6 +94,7 @@
 import { ref, onMounted, toRaw } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getBrewById, updateBrew, deleteBrew } from '../db.js'
+import CupVisual from '../components/CupVisual.vue'
 
 const route = useRoute()
 const router = useRouter()
