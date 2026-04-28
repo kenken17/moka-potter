@@ -32,24 +32,24 @@
         <div class="input-row">
           <div class="input-group" :class="{ 'input-error': errors.water }">
             <label for="water">Water (g)</label>
-            <input type="number" id="water" v-model="form.water" min="0" step="1" placeholder="0" @input="errors.water = false" />
+            <input type="number" id="water" v-model="form.water" min="0" max="500" step="1" placeholder="0" @input="errors.water = false" />
           </div>
 
           <div class="input-group" :class="{ 'input-error': errors.temp }">
             <label for="temp">Temp (&deg;C)</label>
-            <input type="number" id="temp" v-model="form.temp" min="0" max="100" step="1" placeholder="92" @input="errors.temp = false" />
+            <input type="number" id="temp" v-model="form.temp" min="0" max="180" step="1" placeholder="92" @input="errors.temp = false" />
           </div>
         </div>
 
         <div class="input-row row-bean">
           <div class="input-group" :class="{ 'input-error': errors.beanName }">
             <label for="beanName">Bean</label>
-            <input type="text" id="beanName" v-model="form.beanName" placeholder="e.g. Ethiopia Yirgacheffe" @input="errors.beanName = false" />
+            <input type="text" id="beanName" v-model="form.beanName" maxlength="50" placeholder="e.g. Ethiopia Yirgacheffe" @input="errors.beanName = false" />
           </div>
 
           <div class="input-group" :class="{ 'input-error': errors.weight }">
             <label for="weight">Weight (g)</label>
-            <input type="number" id="weight" v-model="form.weight" min="0" step="0.1" placeholder="0.0" @input="errors.weight = false" />
+            <input type="number" id="weight" v-model="form.weight" min="0" max="50" step="0.1" placeholder="0.0" @input="errors.weight = false" />
           </div>
         </div>
 
@@ -208,11 +208,16 @@ function clearCupError(index) {
 }
 
 function validateForm() {
+  const bean = form.value.beanName?.trim() || ''
+  const weight = parseFloat(form.value.weight) || 0
+  const water = parseFloat(form.value.water) || 0
+  const temp = parseFloat(form.value.temp) || 0
+
   const e = {
-    beanName: !form.value.beanName?.trim(),
-    weight: !form.value.weight?.toString().trim(),
-    water: !form.value.water?.toString().trim(),
-    temp: !form.value.temp?.toString().trim(),
+    beanName: !bean || bean.length > 50,
+    weight: !weight || weight > 50,
+    water: !water || water > 500,
+    temp: !temp || temp > 180,
     grindSize: !form.value.grindSize,
     cups: form.value.cups.map(c => !c.coffee?.toString().trim())
   }
